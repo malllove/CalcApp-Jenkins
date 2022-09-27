@@ -12,8 +12,18 @@ pipeline {
             }
             post {
                 success {
+                    sh '''
+                    cd target/
+                    ls
+                    mv original*.jar original-CalculatorApp-build-number-${BUILD_NUMBER}.jar
+                    mv CalculatorApp*.jar CalculatorApp-build-number-${BUILD_NUMBER}.jar
+                    '''
                     archiveArtifacts artifacts: '**/target/*.jar'
                     emailext body: 'Build success', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Jenkins Build'
+                }
+                
+                failure {
+                    emailext body: 'Build failed!!!', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Jenkins Build'
                 }
             }
         }
