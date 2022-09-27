@@ -3,9 +3,7 @@ pipeline {
     
     stages {
         stage('Build') {
-            steps {
-                git 'https://github.com/malllove/CalculatorApp.git'
-                
+            steps {                
                 sh "./run_build.sh"
                 sh "./run_tests.sh"
                 sh "mvn clean package"
@@ -14,7 +12,6 @@ pipeline {
                 success {
                     sh '''
                     cd target/
-                    ls
                     mv original*.jar original-CalculatorApp-build-number-${BUILD_NUMBER}.jar
                     mv CalculatorApp*.jar CalculatorApp-build-number-${BUILD_NUMBER}.jar
                     '''
