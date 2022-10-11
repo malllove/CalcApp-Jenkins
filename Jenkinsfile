@@ -22,20 +22,20 @@ pipeline {
                 '''
                 archiveArtifacts artifacts: '**/target/*.jar'
             }
-             post {
-                success {
-                    emailext body: 'Build success', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Jenkins Build Number-${BUILD_NUMBER}'
-                }
-                
-                failure {
-                    emailext body: 'Build failed!!!', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Jenkins Build Nubmer-${BUILD_NUMBER}'
-                }
-            }
         }
         stage('Deployment') {
             steps {
                 sh "cp target/*.jar /var/lib/jenkins/ArtifactsDir"
             }
         }
+    }
+    post {
+         success {
+             emailext body: 'Build success', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Jenkins Build Number-${BUILD_NUMBER}'
+            }
+                
+         failure {
+             emailext body: 'Build failed!!!', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Jenkins Build Nubmer-${BUILD_NUMBER}'
+           }
     }
 }
