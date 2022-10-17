@@ -16,25 +16,25 @@ public class CalcTest {
 
     @Test
     public void testSummation() {
-        int result = 20;
+        int result = x+y;
         Assert.assertEquals(result,calc.summation(x,y));
     }
 
     @Test
     public void testMultiplication() {
-        int result = 75;
+        int result = x*y;
         Assert.assertEquals(result,calc.multiplication(x,y));
     }
 
     @Test
     public void testSubtraction() {
-        int result = 10;
+        int result = x-y;
         Assert.assertEquals(result,calc.subtraction(x,y));
     }
 
     @Test
     public void testDivision() {
-        int result = 3;
+        int result = x/y;
         Assert.assertEquals(result,calc.division(x,y));
     }
 }
